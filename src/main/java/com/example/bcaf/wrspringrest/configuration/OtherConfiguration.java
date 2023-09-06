@@ -8,6 +8,16 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:other.properties")
 public class OtherConfiguration {
     private static String flagLoging;
+    private static String flagLogTable;
+
+    public static String getFlagLogTable() {
+        return flagLogTable;
+    }
+
+    @Value("${flag.logTable}")
+    private void setFlagLogTable(String flagLogTable) {
+        OtherConfiguration.flagLogTable = flagLogTable;
+    }
 
     public static String getFlagLoging() {
         return flagLoging;

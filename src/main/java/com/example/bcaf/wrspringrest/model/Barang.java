@@ -20,10 +20,6 @@ public class Barang implements Serializable {
     @JoinColumn(name = "IDKategoriBarang", foreignKey = @ForeignKey(name = "fkBarangToKategori"))
     private KategoriBarang kategoriBarang;
 
-    public static Long getSerializeversion() {
-        return serializeVersion;
-    }
-
     public Long getIdBarang() {
         return idBarang;
     }

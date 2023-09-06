@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 public class KategoriBarangDTO {
 
-    private Long idKategoriBarang;
+    private Long idKategoriBarang;// idKategoriBarang
     @NotNull
     @NotBlank
     @Length

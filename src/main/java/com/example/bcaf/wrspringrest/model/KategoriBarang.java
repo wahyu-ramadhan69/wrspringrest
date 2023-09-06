@@ -1,6 +1,9 @@
 package com.example.bcaf.wrspringrest.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +17,7 @@ public class KategoriBarang implements Serializable {
     @Column(name = "NamaKategoriBarang")
     private String namaKategoriBarang;
     @OneToMany(mappedBy = "kategoriBarang")
+    @JsonBackReference
     private List<Barang> listBarang;
 
     public Long getIdKategoriBarang() {

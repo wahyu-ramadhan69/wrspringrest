@@ -1,6 +1,8 @@
 package com.example.bcaf.wrspringrest.configuration;
 
 import com.example.bcaf.wrspringrest.core.Crypto;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,11 @@ public class MainConfiguration {
         dataSourceBuilder.username(environment.getProperty("spring.datasource.username"));// environment.getProperty("spring.datasource.user")
         dataSourceBuilder.password(Crypto.performDecrypt(environment.getProperty("spring.datasource.password")));// environment.getProperty("spring.datasource.password")
         return dataSourceBuilder.build();
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 }

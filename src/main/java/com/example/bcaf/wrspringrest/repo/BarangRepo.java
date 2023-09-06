@@ -1,8 +1,14 @@
 package com.example.bcaf.wrspringrest.repo;
 
+import com.example.bcaf.wrspringrest.model.Barang;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.bcaf.wrspringrest.model.BarangModel;
+public interface BarangRepo extends JpaRepository<Barang, Long> {
 
-public interface BarangRepo extends JpaRepository<BarangModel, Long> {
+    public Page<Barang> findByNamaBarangContains(Pageable p, String val);
+
+    public Page<Barang> findByDeskripsiContains(Pageable p, String val);
+
 }

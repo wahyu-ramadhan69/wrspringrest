@@ -1,9 +1,9 @@
 package com.example.bcaf.wrspringrest.controller;
 
-import com.example.bcaf.wrspringrest.dto.KategoriBarangDTO;
 import com.example.bcaf.wrspringrest.model.KategoriBarang;
 import com.example.bcaf.wrspringrest.services.CsvExport;
 import com.example.bcaf.wrspringrest.services.KategoriBarangService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,8 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/katbarang")
 public class KategoriBarangController {
+
     private KategoriBarangService kategoriBarangService;
-    private CsvExport csvExport;
 
     public KategoriBarangController(KategoriBarangService kategoriBarangService) {
         this.kategoriBarangService = kategoriBarangService;

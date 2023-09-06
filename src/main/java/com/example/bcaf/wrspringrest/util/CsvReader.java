@@ -1,5 +1,6 @@
 package com.example.bcaf.wrspringrest.util;
 
+import com.example.bcaf.wrspringrest.model.Barang;
 import com.example.bcaf.wrspringrest.model.KategoriBarang;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -44,6 +45,33 @@ public class CsvReader {
                 csvParser.close();
             }
             return listKategoriBarang;
+        }
+    }
+
+    public static List<Barang> csvToKategoriBarang(InputStream inputStream) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        CSVParser csvParser = new CSVParser(bufferedReader,
+                CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
+        List<Barang> listBarang = new ArrayList<Barang>();
+        try {
+
+            Iterable<CSVRecord> iterRecords = csvParser.getRecords();
+            Barang barang;
+            for (CSVRecord record : iterRecords) {
+                barang = new Barang();
+                barang.setNamaBarang(record.get("namaBarang"));
+                barang.setDeskripsi(record.get("deskripsi"));
+                listBarang.add(barang);
+            }
+
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+
+            if (!csvParser.isClosed()) {
+                csvParser.close();
+            }
+            return listBarang;
         }
     }
 }
