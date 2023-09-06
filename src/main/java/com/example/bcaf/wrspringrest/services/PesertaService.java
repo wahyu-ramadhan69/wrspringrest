@@ -24,7 +24,6 @@ public class PesertaService {
 
     public void save(PesertaModel pesertaModel) {
         try {
-            int intX = 1 / 0;// COBA ERRORIN
             pesertaRepo.save(pesertaModel);
         } catch (Exception e) {
             strExceptionArr[1] = "save(Peserta peserta) --- LINE 30";

@@ -1,35 +1,45 @@
 package com.example.bcaf.wrspringrest.model;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "ModelA")
 public class ModelA {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDModelA")
     private Long idModelA;
 
-    @Column(name = "CreateBy")
-    private Long createby;
-    @Column(name = "CreatedDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-    @Column(name = "isActive")
-    private Short isActive;
-    @Column(name = "ModelA", nullable = false, columnDefinition = "CHAR(20)")
-    private String modela;
-    @Column(name = "ModifiedfBy")
-    private Long modifiedby;
-    @Column(name = "ModifiedDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ModifiedDate;
-    @OneToMany(mappedBy = "ModelA")
+    @Column(name = "ModelA", columnDefinition = "CHAR(20) NOT NULL default 'Default model A'")
+    private String modelA;
+
+    @OneToMany(mappedBy = "modelA")
     private List<ModelB> listModelB;
+
+    @Column(name = "CreatedBy", columnDefinition = "BIGINT NOT NULL default 1")
+    private Long createdBy;
+
+    @Column(name = "CreatedDate", columnDefinition = "DATETIME NOT NULL default GETDATE()")
+    private Date createdDate = new Date();
+
+    @Column(name = "ModifiedBy")
+    private Long modifiedBy;
+
+    @Column(name = "ModifiedDate", columnDefinition = "DATETIME NULL")
+    private Date modifiedDate;
+
+    @Column(name = "IsActive")
+    private Byte isActive;
+
+    public List<ModelB> getListModelB() {
+        return listModelB;
+    }
+
+    public void setListModelB(List<ModelB> listModelB) {
+        this.listModelB = listModelB;
+    }
 
     public Long getIdModelA() {
         return idModelA;
@@ -39,12 +49,20 @@ public class ModelA {
         this.idModelA = idModelA;
     }
 
-    public Long getCreateby() {
-        return createby;
+    public String getModelA() {
+        return modelA;
     }
 
-    public void setCreateby(Long createby) {
-        this.createby = createby;
+    public void setModelA(String modelA) {
+        this.modelA = modelA;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Date getCreatedDate() {
@@ -55,43 +73,27 @@ public class ModelA {
         this.createdDate = createdDate;
     }
 
-    public Short getIsActive() {
-        return isActive;
+    public Long getModifiedBy() {
+        return modifiedBy;
     }
 
-    public void setIsActive(Short isActive) {
-        this.isActive = isActive;
-    }
-
-    public String getModela() {
-        return modela;
-    }
-
-    public void setModela(String modela) {
-        this.modela = modela;
-    }
-
-    public Long getModifiedby() {
-        return modifiedby;
-    }
-
-    public void setModifiedby(Long modifiedby) {
-        this.modifiedby = modifiedby;
+    public void setModifiedBy(Long modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public Date getModifiedDate() {
-        return ModifiedDate;
+        return modifiedDate;
     }
 
     public void setModifiedDate(Date modifiedDate) {
-        ModifiedDate = modifiedDate;
+        this.modifiedDate = modifiedDate;
     }
 
-    public List<ModelB> getListModelB() {
-        return listModelB;
+    public Byte getIsActive() {
+        return isActive;
     }
 
-    public void setListModelB(List<ModelB> listModelB) {
-        this.listModelB = listModelB;
+    public void setIsActive(Byte isActive) {
+        this.isActive = isActive;
     }
 }

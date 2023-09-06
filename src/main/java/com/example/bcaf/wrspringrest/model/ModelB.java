@@ -2,31 +2,56 @@ package com.example.bcaf.wrspringrest.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "ModelB")
 public class ModelB {
-    private static final Long serializeVersion = 70002L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDModelB")
     private Long idModelB;
-    @Column(name = "CreatedBy")
-    private long Createdby;
-    @Column(name = "createdDate", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-    @Column(name = "IsActive")
-    private short IsActive;
-    @Column(name = "ModelB", columnDefinition = "CHAR(30)")
-    private String ModelB;
+
+    @Column(name = "ModelB", columnDefinition = "CHAR(30) NOT NULL default 'Default Model B' ")
+    private String modelB;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IDModelA", foreignKey = @ForeignKey(name = "fk_modelB_modelA", foreignKeyDefinition = "FOREIGN KEY ([IDModelA]) REFERENCES [ujianSB].[ModelA] ([IDModelA]) ON DELETE SET NULL ON UPDATE SET NULL"))
+    private ModelA modelA;
+
+    @ManyToMany(mappedBy = "listModelB")
+    private List<ModelC> listModelC;
+
+    @Column(name = "CreatedBy", columnDefinition = "BIGINT NOT NULL default 1")
+    private Long createdBy;
+
+    @Column(name = "CreatedDate", columnDefinition = "DATETIME NOT NULL default GETDATE()")
+    private Date createdDate = new Date();
+
     @Column(name = "ModifiedBy")
-    private long ModifiedBy;
-    @Column(name = "ModifiedDate", columnDefinition = "CHAR(50)")
-    private String ModifiedDate;
-    @ManyToOne
-    @JoinColumn(name = "IDModelA", foreignKey = @ForeignKey(name = "fkModelAToModelB"))
-    private ModelA ModelA;
+    private Long modifiedBy;
+
+    @Column(name = "ModifiedDate", columnDefinition = "DATETIME NULL")
+    private Date modifiedDate;
+
+    @Column(name = "IsActive")
+    private Byte isActive;
+
+    public ModelA getModelA() {
+        return modelA;
+    }
+
+    public void setModelA(ModelA modelA) {
+        this.modelA = modelA;
+    }
+
+    public List<ModelC> getListModelC() {
+        return listModelC;
+    }
+
+    public void setListModelC(List<ModelC> listModelC) {
+        this.listModelC = listModelC;
+    }
 
     public Long getIdModelB() {
         return idModelB;
@@ -36,12 +61,20 @@ public class ModelB {
         this.idModelB = idModelB;
     }
 
-    public long getCreatedby() {
-        return Createdby;
+    public String getModelB() {
+        return modelB;
     }
 
-    public void setCreatedby(long createdby) {
-        Createdby = createdby;
+    public void setModelB(String modelB) {
+        this.modelB = modelB;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Date getCreatedDate() {
@@ -52,43 +85,27 @@ public class ModelB {
         this.createdDate = createdDate;
     }
 
-    public short getIsActive() {
-        return IsActive;
+    public Long getModifiedBy() {
+        return modifiedBy;
     }
 
-    public void setIsActive(short isActive) {
-        IsActive = isActive;
+    public void setModifiedBy(Long modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
-    public String getModelB() {
-        return ModelB;
+    public Date getModifiedDate() {
+        return modifiedDate;
     }
 
-    public void setModelB(String modelB) {
-        ModelB = modelB;
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
-    public long getModifiedBy() {
-        return ModifiedBy;
+    public Byte getIsActive() {
+        return isActive;
     }
 
-    public void setModifiedBy(long modifiedBy) {
-        ModifiedBy = modifiedBy;
-    }
-
-    public String getModifiedDate() {
-        return ModifiedDate;
-    }
-
-    public void setModifiedDate(String modifiedDate) {
-        ModifiedDate = modifiedDate;
-    }
-
-    public com.example.bcaf.wrspringrest.model.ModelA getModelA() {
-        return ModelA;
-    }
-
-    public void setModelA(com.example.bcaf.wrspringrest.model.ModelA modelA) {
-        ModelA = modelA;
+    public void setIsActive(Byte isActive) {
+        this.isActive = isActive;
     }
 }

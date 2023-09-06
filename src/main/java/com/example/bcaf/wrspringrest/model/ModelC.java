@@ -5,91 +5,100 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "ModelC")
 public class ModelC {
 
-    private static final Long serializeVersion = 70003L;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "IDModelC")
+        private Long idModelC;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDModelC")
-    private Long idmodelc;
+        @Column(name = "ModelC", columnDefinition = "CHAR(25) NOT NULL default 'Default Model C' ")
+        private String modelC;
 
-    @Column(name = "CreatedDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+        @ManyToMany
+        @JoinTable(name = "MapModelBModelC", joinColumns = {
+                        @JoinColumn(name = "IDModelC", referencedColumnName = "IDModelC", foreignKey = @ForeignKey(name = "fkMapToModelC")) }, inverseJoinColumns = {
+                                        @JoinColumn(name = "IDModelB", referencedColumnName = "IDModelB", foreignKey = @ForeignKey(name = "fkMapToModelB")),
+                        }, uniqueConstraints = @UniqueConstraint(columnNames = {
+                                        "IDModelB", "IDModelC" }))
+        private List<ModelB> listModelB;
 
-    @Column(name = "isActive")
-    private Short isActive;
-    @Column(name = "ModelC", nullable = false, columnDefinition = "CHAR(20)")
-    private String modelc;
+        @Column(name = "CreatedBy", columnDefinition = "BIGINT NOT NULL default 1")
+        private Long createdBy;
 
-    @Column(name = "ModifiedBy")
-    private Long modifiedby;
-    @Column(name = "ModifiedDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ModifiedDate;
+        @Column(name = "CreatedDate", columnDefinition = "DATETIME NOT NULL default 'GETDATE()'")
+        private Date createdDate = new Date();
 
-    @ManyToMany
-    @JoinTable(name = "MapModelBModelC", joinColumns = {
-            @JoinColumn(name = "IDModelC", referencedColumnName = "IDModelC", foreignKey = @ForeignKey(name = "fkMapToModelC")) }, inverseJoinColumns = {
-                    @JoinColumn(name = "IDModelB", referencedColumnName = "IDModelB", foreignKey = @ForeignKey(name = "fkMapToModelB")) }, uniqueConstraints = @UniqueConstraint(columnNames = {
-                            "IDModelC", "IDModelB" }))
-    private List<ModelB> ModelB;
+        @Column(name = "ModifiedBy")
+        private Long modifiedBy;
 
-    public Long getIdmodelc() {
-        return idmodelc;
-    }
+        @Column(name = "ModifiedDate", columnDefinition = "DATETIME NULL")
+        private Date modifiedDate;
 
-    public void setIdmodelc(Long idmodelc) {
-        this.idmodelc = idmodelc;
-    }
+        @Column(name = "IsActive")
+        private Byte isActive;
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+        public List<ModelB> getListModelB() {
+                return listModelB;
+        }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+        public void setListModelB(List<ModelB> listModelB) {
+                this.listModelB = listModelB;
+        }
 
-    public Short getIsActive() {
-        return isActive;
-    }
+        public Long getIdModelC() {
+                return idModelC;
+        }
 
-    public void setIsActive(Short isActive) {
-        this.isActive = isActive;
-    }
+        public void setIdModelC(Long idModelC) {
+                this.idModelC = idModelC;
+        }
 
-    public String getModelc() {
-        return modelc;
-    }
+        public String getModelC() {
+                return modelC;
+        }
 
-    public void setModelc(String modelc) {
-        this.modelc = modelc;
-    }
+        public void setModelC(String modelC) {
+                this.modelC = modelC;
+        }
 
-    public Long getModifiedby() {
-        return modifiedby;
-    }
+        public Long getCreatedBy() {
+                return createdBy;
+        }
 
-    public void setModifiedby(Long modifiedby) {
-        this.modifiedby = modifiedby;
-    }
+        public void setCreatedBy(Long createdBy) {
+                this.createdBy = createdBy;
+        }
 
-    public Date getModifiedDate() {
-        return ModifiedDate;
-    }
+        public Date getCreatedDate() {
+                return createdDate;
+        }
 
-    public void setModifiedDate(Date modifiedDate) {
-        ModifiedDate = modifiedDate;
-    }
+        public void setCreatedDate(Date createdDate) {
+                this.createdDate = createdDate;
+        }
 
-    public List<com.example.bcaf.wrspringrest.model.ModelB> getModelB() {
-        return ModelB;
-    }
+        public Long getModifiedBy() {
+                return modifiedBy;
+        }
 
-    public void setModelB(List<com.example.bcaf.wrspringrest.model.ModelB> modelB) {
-        ModelB = modelB;
-    }
+        public void setModifiedBy(Long modifiedBy) {
+                this.modifiedBy = modifiedBy;
+        }
+
+        public Date getModifiedDate() {
+                return modifiedDate;
+        }
+
+        public void setModifiedDate(Date modifiedDate) {
+                this.modifiedDate = modifiedDate;
+        }
+
+        public Byte getIsActive() {
+                return isActive;
+        }
+
+        public void setIsActive(Byte isActive) {
+                this.isActive = isActive;
+        }
 }
